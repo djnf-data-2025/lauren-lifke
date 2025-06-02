@@ -46,7 +46,7 @@ library(rvest)
 # YOUR_DATA <- read.csv("../data/XXXXX.csv") |> 
 #     clean_names()
 
-data <- read.csv("./data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv") |> 
+data <- read.csv("../data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv") |> 
     clean_names()
 
 
