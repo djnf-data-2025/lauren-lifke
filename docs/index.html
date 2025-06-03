@@ -355,6 +355,76 @@ display: none;
 </div>
 
 
+<p>Lifke story pitch: # Lauren Lifke # <a href="mailto:lifke.laur@gmail.com" class="email">lifke.laur@gmail.com</a> # June 2</p>
+<p>During the 2024 election, David D. Smith, CEO of Sinclair Broadcast
+Group and owner of the Baltimore Sun, donated the sixth-highest dollar
+amount out of all donors to receiving committees, according to
+Maryland’s 2024 campaign finance data. The donations, totaling $85,000
+and made through two transactions in October 2024, were made out to
+People for Elected Accountability and Civic Engagement – a ballot issue
+committee that aimed to shrink the size of the Baltimore City Council.
+Though that ballot measure didn’t pass in November, Smith’s influence on
+the Sun’s coverage remains a hot topic more than a year after its
+purchase, especially as the topics of press freedom and political
+influence on media have grown nationally since President Donald Trump’s
+inauguration.</p>
+<p>Baltimore citizens are the target audience, as they voted against the
+ballot measure 62-38%, in part with the help of Mayor Brandon Scott and
+the Stop Sinclair Committee.</p>
+<p>Interview subjects: 1) A spokesperson for PEACE who can comment on
+the donations 2) A spokesperson for Stop Sinclair, the committee that
+succeded in its goal of not allowing the ballot measure to pass 3)
+Current or former reporters for the Baltimore Sun who can speak on the
+shift in culture after Smith’s purchase 4) The data to compare the size
+of Smith’s donations with others</p>
+<p>Potential impact: By digging deeper into the specifics of the
+campaign donations, which have already been reported on, the article can
+keep the conversation and momentum going regarding Smith’s influence on
+local politics and the media in Baltimore. Discussion of this topic has
+already helped sway voters to vote against a ballot measure for the
+first time in 20 years, and keeping the conversation moving might allow
+for change in future elections, too.</p>
+<p>Three surprising or interesting things: It was surprising to see that
+an individual, as opposed to an organization, was in the top 10
+contributors. I also learned more about the local Maryland politics just
+by discussing the story with classmates and mentors, so it was
+interesting to grow more invested in the community I’ll be reporting in.
+Aside from that, I also learned that, although the contribution amount
+caps at an allotted $6,000 per person, there is an exception for ballot
+issue committees.</p>
+<p>Previous coverage: The Baltimore Banner is a newer newsroom that has
+been following Smith’s purchase of the Baltimore Sun and his involvement
+in the ballot measure, and its coverage, linked below, highlights the
+impact that shrinking a city council would have had on smaller
+communities. It has also followed the Stop Sinclair committee, showing
+that the fight against Smith has grown expensive.</p>
+<p>I can make this story visual by comparing the size of Smith’s
+donations with other individuals and groups. The top 20 donors exceeded
+other donations by a large margin, so I can show how Smith compares to
+them both in number and by issue using pie charts or bar graphs. I can
+also use older data to show how Smith’s contributions have changed over
+time.</p>
+<p>I need to gather newer data – according to Maryland State Board of
+Elections, disclosures of contributions are due biannually, with the
+most recent being May 31. These contributions aren’t available publicly
+online yet from what I can tell, but once it’s up I can gather that
+information and include it to add to the timeliness aspect of the story.
+<a href="https://elections.maryland.gov/campaign_finance/disclosure_of_contributions.html" class="uri">https://elections.maryland.gov/campaign_finance/disclosure_of_contributions.html</a></p>
+<p>I can deliver the aspects of the story that are in my control by
+Friday, and hopefully the newer data will be available before then so
+that I can I can include that.</p>
+<p>##Notes Your Name, Contact Information, Date In two sentences, what
+is this story about? In one sentence, why tell this story NOW? Who is
+your target audience? Three people you can interview for this story
+Potential impact What are three things that surprised or interested you
+about this story? Context: Summarize any previous coverage. Photos,
+video, graphics - How will you make this story visual? What other
+information do you need to gather? Estimated delivery</p>
+<p>Related coverage: <a href="https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/" class="uri">https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/</a>
+<a href="https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/" class="uri">https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/</a>
+<a href="https://www.wypr.org/wypr-news/2024-11-05/baltimore-city-voters-reject-ballot-question-h-and-keep-city-council-current-size" class="uri">https://www.wypr.org/wypr-news/2024-11-05/baltimore-city-voters-reject-ballot-question-h-and-keep-city-council-current-size</a>
+/<a href="https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/" class="uri">https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/</a>
+<a href="https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-reduction-david-smith-BQDKG67DN5BJ5IOUPIXB4IO3AU/" class="uri">https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-reduction-david-smith-BQDKG67DN5BJ5IOUPIXB4IO3AU/</a></p>
 <p>A demo notebook for Dow Jones News Fund data interns</p>
 <p>During the week’s training, you will work on a project called
 Investigate Your Community to produce detailed story pitches relevant to
@@ -412,9 +482,7 @@ library(rvest)</code></pre>
 #     clean_names()
 
 data &lt;- read.csv(&quot;../data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv&quot;) |&gt; 
-    clean_names()
-
-#testing testing 123</code></pre>
+    clean_names()</code></pre>
 <p>Data details:</p>
 </div>
 <div id="explore-the-data-types" class="section level1">
@@ -483,6 +551,10 @@ glimpse(data)</code></pre>
 ## 33 2024-10-15    1
 ## 34 2024-10-17    1
 ## 35 2024-10-20    1</code></pre>
+<pre class="r"><code>MSEA &lt;- data |&gt;
+  group_by(receiving_committee) |&gt;
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))</code></pre>
 </div>
 <div id="questions" class="section level1">
 <h1>Questions</h1>
@@ -494,6 +566,35 @@ was Nov. 8, 2024 one of the dates with the largest number of
 contributions, three days after the election? Which committee received
 the highest number of contributions? Which committee received the
 highest total dollar amount in contributions?</p>
+</div>
+<div id="contributors" class="section level1">
+<h1>Contributors</h1>
+<pre class="r"><code>contributor_total &lt;- data |&gt;
+group_by(contributor_name) |&gt;
+  summarise(num = n(),
+          total = sum(contribution_amount))</code></pre>
+<pre class="r"><code>receivingcommittee_total &lt;- data |&gt;
+  group_by(receiving_committee) |&gt;
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))</code></pre>
+<pre class="r"><code>data |&gt; 
+   group_by(receiving_committee) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(count))</code></pre>
+<pre><code>## # A tibble: 223 × 3
+##    receiving_committee                                       count  total
+##    &lt;chr&gt;                                                     &lt;int&gt;  &lt;dbl&gt;
+##  1 MSEA&#39;s Fund For Children And Public Education PAC          9915 57734.
+##  2 Baltimore County Fraternal Order Of Police Lodge #4 PAC    2821  1410.
+##  3 Baltimore Fire Fighters  Local 734 PAC                     1058  5645 
+##  4 Frederick Career Firefighters PAC                           908  6410 
+##  5 Realtors PAC  Md. (MD RPAC)                                 828 24047.
+##  6 Baltimore Teachers Union - COPE PAC  The                    510   841.
+##  7 Greater Capital Area Political Action Committee             430  4181.
+##  8 Police PAC of Montgomery County  FOP Lodge 35               299   652.
+##  9 Harford County Deputy Sheriffs Political Action Committee   260  2600 
+## 10 CareFirst BlueCross BlueShield Associates&#39; PAC              241  4176.
+## # ℹ 213 more rows</code></pre>
 </div>
 <div id="data-details" class="section level1">
 <h1>Data Details</h1>
