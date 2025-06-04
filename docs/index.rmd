@@ -8,18 +8,20 @@ editor_options:
 ---
 [lifke.laur\@gmail.com](mailto:lifke.laur@gmail.com){.email}
 
-testing change testing 123
 
-**testing change again**
 
 During the 2024 election, David D. Smith, CEO of Sinclair Broadcast Group and owner of the Baltimore Sun, donated the sixth-highest dollar amount out of all donors to receiving committees, according to Maryland's 2024 campaign finance data. The donations, totaling $85,000 and made through two transactions in October 2024, were made out to People for Elected Accountability and Civic Engagement -- a ballot issue committee that aimed to shrink the size of the Baltimore City Council. Though that ballot measure didn't pass in November, Smith's influence on the Sun's coverage remains a hot topic more than a year after its purchase, especially as the topics of press freedom and political influence on media have grown nationally since President Donald Trump's inauguration. 
 
 Baltimore citizens are the target audience, as they voted against the ballot measure 62%-38%, in part with the help of Mayor Brandon Scott and the Stop Sinclair Committee. 
 
 **Interview subjects**:
+
 1. A spokesperson for PEACE who can comment on the donations
+
 2. A spokesperson for Stop Sinclair, the committee that succeeded in its goal of not allowing the ballot measure to pass
+
 3. Current or former reporters for the Baltimore Sun who can speak on the shift in culture after Smith's purchase
+
 4. The data to compare the size of Smith's donations with others
 
 **Potential impact**: 
@@ -37,11 +39,30 @@ I need to gather newer data -- according to Maryland State Board of Elections, d
 
 Related coverage:
 <https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/>
+
 <https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/>
+
 <https://www.wypr.org/wypr-news/2024-11-05/baltimore-city-voters-reject-ballot-question-h-and-keep-city-council-current-size>
+
 <https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/>
+
 <https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-reduction-david-smith-BQDKG67DN5BJ5IOUPIXB4IO3AU/>
+
 <https://www.thebaltimorebanner.com/politics-power/local-government/smaller-baltimore-council-ballot-question-AN7255KQU5GSRIVVJBIKKAQ5SE/>
+
+## Charts
+
+
+<iframe title="Top 10 campaign donors in the Maryland 2024 election " aria-label="Stacked Bars" id="datawrapper-chart-MAFhp" src="https://datawrapper.dwcdn.net/MAFhp/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
+</script>
+
+
+
+
+
+
+<iframe title="Top 10 donation recipients in the Maryland 2024 election" aria-label="Stacked Bars" id="datawrapper-chart-dL764" src="https://datawrapper.dwcdn.net/dL764/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
+</script>
 
 
 Code
@@ -142,17 +163,3 @@ data |>
   summarize(count = n(), total =sum(contribution_amount)) |>
   arrange(desc(total))
 ```
-
-## Charts
-
-
-<iframe title="Top 10 campaign donors in the Maryland 2024 election " aria-label="Stacked Bars" id="datawrapper-chart-MAFhp" src="https://datawrapper.dwcdn.net/MAFhp/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
-</script>
-
-
-
-
-
-
-<iframe title="Top 10 donation recipients in the Maryland 2024 election" aria-label="Stacked Bars" id="datawrapper-chart-dL764" src="https://datawrapper.dwcdn.net/dL764/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
-</script>
