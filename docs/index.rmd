@@ -12,7 +12,7 @@ editor_options:
 
 During the 2024 election, David D. Smith, CEO of Sinclair Broadcast Group and owner of the Baltimore Sun, donated the sixth-highest dollar amount out of all donors to receiving committees, according to Maryland's 2024 campaign finance data. The donations, totaling $85,000 and made through two transactions in October 2024, were made out to People for Elected Accountability and Civic Engagement -- a ballot issue committee that aimed to shrink the size of the Baltimore City Council. Though that ballot measure didn't pass in November, Smith's influence on the Sun's coverage remains a hot topic more than a year after its purchase, especially as the topics of press freedom and political influence on media have grown nationally since President Donald Trump's inauguration. 
 
-Baltimore citizens are the target audience, as they voted against the ballot measure 62%-38%, in part with the help of Mayor Brandon Scott and the Stop Sinclair Committee. 
+Baltimore citizens are the target audience, as they voted against the ballot measure 62%-38%, with the help of Mayor Brandon Scott and the Stop Sinclair Committee. 
 
 **Interview subjects**:
 
@@ -37,7 +37,8 @@ I can make this story visual by comparing the size of Smith's donations with oth
 
 I need to gather newer data -- according to Maryland State Board of Elections, disclosures of contributions are due biannually, with the most recent being May 31. These contributions aren't available publicly online yet from what I can tell, but once it's up I can gather that information and include it to add to the timeliness aspect of the story. https://elections.maryland.gov/campaign_finance/disclosure_of_contributions.html
 
-Related coverage:
+**Related coverage**:
+
 <https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/>
 
 <https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/>
@@ -68,7 +69,7 @@ Related coverage:
 Code
 =======
 
-# Load software libraries
+### Load software libraries
 ```{r}
 #install.packages("tidyverse")
 #install.packages("janitor")
@@ -82,7 +83,7 @@ library(rvest)
 ```
 
 
-# Load data
+### Load data
 
 
 ```{r}
@@ -98,7 +99,7 @@ data <- read.csv("../data/2024 Presidential Post General Md Financial Info 2024 
 ```
 
 
-# Explore the data types
+### Explore the data types
 ```{r}
 
 #glimpse(YOUR_DATA)
@@ -107,7 +108,7 @@ glimpse(data)
 
 ```
 
-# Fix dates
+### Fix dates
 ```{r}
 data <- data |> 
   mutate(date = lubridate::mdy(contribution_date))
@@ -115,7 +116,7 @@ data <- data |>
 
 
 
-# Data exploration: dates
+### Data exploration: dates
 
 ```{r}
 data |> 

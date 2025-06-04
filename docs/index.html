@@ -369,8 +369,8 @@ purchase, especially as the topics of press freedom and political
 influence on media have grown nationally since President Donald Trump’s
 inauguration.</p>
 <p>Baltimore citizens are the target audience, as they voted against the
-ballot measure 62%-38%, in part with the help of Mayor Brandon Scott and
-the Stop Sinclair Committee.</p>
+ballot measure 62%-38%, with the help of Mayor Brandon Scott and the
+Stop Sinclair Committee.</p>
 <p><strong>Interview subjects</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p>A spokesperson for PEACE who can comment on the
@@ -416,7 +416,8 @@ most recent being May 31. These contributions aren’t available publicly
 online yet from what I can tell, but once it’s up I can gather that
 information and include it to add to the timeliness aspect of the story.
 <a href="https://elections.maryland.gov/campaign_finance/disclosure_of_contributions.html" class="uri">https://elections.maryland.gov/campaign_finance/disclosure_of_contributions.html</a></p>
-<p>Related coverage: <a href="https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/" class="uri">https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/</a></p>
+<p><strong>Related coverage</strong>:</p>
+<p><a href="https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/" class="uri">https://www.rollingstone.com/politics/politics-features/baltimore-sun-right-wing-takeover-david-smith-1235268329/</a></p>
 <p><a href="https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/" class="uri">https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-ballot-size-E6DOSA5QD5E3JIRGQHUV53WXUA/</a></p>
 <p><a href="https://www.wypr.org/wypr-news/2024-11-05/baltimore-city-voters-reject-ballot-question-h-and-keep-city-council-current-size" class="uri">https://www.wypr.org/wypr-news/2024-11-05/baltimore-city-voters-reject-ballot-question-h-and-keep-city-council-current-size</a></p>
 <p><a href="https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/" class="uri">https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/</a></p>
@@ -435,9 +436,8 @@ information and include it to add to the timeliness aspect of the story.
 </div>
 <div id="code" class="section level1">
 <h1>Code</h1>
-</div>
-<div id="load-software-libraries" class="section level1">
-<h1>Load software libraries</h1>
+<div id="load-software-libraries" class="section level3">
+<h3>Load software libraries</h3>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
 #install.packages(&quot;janitor&quot;)
 #install.packages(&quot;readxl&quot;)
@@ -469,8 +469,8 @@ library(rvest)</code></pre>
 ## 
 ##     guess_encoding</code></pre>
 </div>
-<div id="load-data" class="section level1">
-<h1>Load data</h1>
+<div id="load-data" class="section level3">
+<h3>Load data</h3>
 <pre class="r"><code># 
 # YOUR_DATA &lt;- read.csv(&quot;../data/XXXXX.csv&quot;) |&gt; 
 #     clean_names()
@@ -478,8 +478,8 @@ library(rvest)</code></pre>
 data &lt;- read.csv(&quot;../data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv&quot;) |&gt; 
     clean_names()</code></pre>
 </div>
-<div id="explore-the-data-types" class="section level1">
-<h1>Explore the data types</h1>
+<div id="explore-the-data-types" class="section level3">
+<h3>Explore the data types</h3>
 <pre class="r"><code>#glimpse(YOUR_DATA)
 
 glimpse(data)</code></pre>
@@ -498,13 +498,13 @@ glimpse(data)</code></pre>
 ## $ office              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
 ## $ fundtype            &lt;chr&gt; &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;…</code></pre>
 </div>
-<div id="fix-dates" class="section level1">
-<h1>Fix dates</h1>
+<div id="fix-dates" class="section level3">
+<h3>Fix dates</h3>
 <pre class="r"><code>data &lt;- data |&gt; 
   mutate(date = lubridate::mdy(contribution_date))</code></pre>
 </div>
-<div id="data-exploration-dates" class="section level1">
-<h1>Data exploration: dates</h1>
+<div id="data-exploration-dates" class="section level3">
+<h3>Data exploration: dates</h3>
 <pre class="r"><code>data |&gt; 
    group_by(date, contribution_type) |&gt;
   summarize(count = n(), total =sum(contribution_amount)) |&gt;
@@ -526,6 +526,7 @@ glimpse(data)</code></pre>
 ##  9 2024-11-12 &quot;Payroll Deductions &quot;   852  2817.
 ## 10 2024-11-01 &quot;Payroll Deductions &quot;   712  4401.
 ## # ℹ 200 more rows</code></pre>
+</div>
 <div id="total-amount-contributed-in-dollars" class="section level3">
 <h3>Total amount contributed, in dollars</h3>
 <pre class="r"><code>contributor_total &lt;- data |&gt;
