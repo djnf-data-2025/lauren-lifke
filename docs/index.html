@@ -423,6 +423,12 @@ information and include it to add to the timeliness aspect of the story.
 <p><a href="https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/" class="uri">https://www.thebaltimorebanner.com/economy/sun-owner-david-smith-fox-VQKQHEG4EJAIVA6TRKXMKR5EUM/</a></p>
 <p><a href="https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-reduction-david-smith-BQDKG67DN5BJ5IOUPIXB4IO3AU/" class="uri">https://www.thebaltimorebanner.com/politics-power/local-government/baltimore-council-reduction-david-smith-BQDKG67DN5BJ5IOUPIXB4IO3AU/</a></p>
 <p><a href="https://www.thebaltimorebanner.com/politics-power/local-government/smaller-baltimore-council-ballot-question-AN7255KQU5GSRIVVJBIKKAQ5SE/" class="uri">https://www.thebaltimorebanner.com/politics-power/local-government/smaller-baltimore-council-ballot-question-AN7255KQU5GSRIVVJBIKKAQ5SE/</a></p>
+<p><strong>Findings</strong>:</p>
+<p>The total donation amount in the 2024 presidential post-general
+election was $2,136,035. In 2020, it was $1,896,300. As the
+sixth-largest donor in 2024, David D. Smith’s donations made up nearly
+4% of the total contribution amount. In 2020, the sixth-largest donor
+made up only the 1.5% of the total contribution amount.</p>
 <div id="charts" class="section level2">
 <h2>Charts</h2>
 <iframe title="Top 10 campaign donors in the Maryland 2024 election " aria-label="Stacked Bars" id="datawrapper-chart-MAFhp" src="https://datawrapper.dwcdn.net/MAFhp/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1">
@@ -433,11 +439,20 @@ information and include it to add to the timeliness aspect of the story.
 </iframe>
 <script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
 </script>
+<iframe title="Top 10 contributors as percent of total contributions, by year" aria-label="Grouped Bars" id="datawrapper-chart-1I487" src="https://datawrapper.dwcdn.net/1I487/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="676" data-external="1">
+</iframe>
+<script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
+</script>
 </div>
 <div id="code" class="section level1">
 <h1>Code</h1>
+</div>
+<div id="data" class="section level1">
+<h1><strong><span style="color:#6c3483;"><strong>2024
+data</strong></span></strong></h1>
 <div id="load-software-libraries" class="section level3">
-<h3>Load software libraries</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Load software
+libraries</strong></span></strong></h3>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;)
 #install.packages(&quot;janitor&quot;)
 #install.packages(&quot;readxl&quot;)
@@ -470,16 +485,18 @@ library(rvest)</code></pre>
 ##     guess_encoding</code></pre>
 </div>
 <div id="load-data" class="section level3">
-<h3>Load data</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Load
+data</strong></span></strong></h3>
 <pre class="r"><code># 
 # YOUR_DATA &lt;- read.csv(&quot;../data/XXXXX.csv&quot;) |&gt; 
 #     clean_names()
 
-data &lt;- read.csv(&quot;../data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv&quot;) |&gt; 
+data &lt;- read.csv(&quot;./data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv&quot;) |&gt; 
     clean_names()</code></pre>
 </div>
 <div id="explore-the-data-types" class="section level3">
-<h3>Explore the data types</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Explore the data
+types</strong></span></strong></h3>
 <pre class="r"><code>#glimpse(YOUR_DATA)
 
 glimpse(data)</code></pre>
@@ -499,12 +516,14 @@ glimpse(data)</code></pre>
 ## $ fundtype            &lt;chr&gt; &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;…</code></pre>
 </div>
 <div id="fix-dates" class="section level3">
-<h3>Fix dates</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Fix
+dates</strong></span></strong></h3>
 <pre class="r"><code>data &lt;- data |&gt; 
   mutate(date = lubridate::mdy(contribution_date))</code></pre>
 </div>
 <div id="data-exploration-dates" class="section level3">
-<h3>Data exploration: dates</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Data exploration:
+dates</strong></span></strong></h3>
 <pre class="r"><code>data |&gt; 
    group_by(date, contribution_type) |&gt;
   summarize(count = n(), total =sum(contribution_amount)) |&gt;
@@ -527,8 +546,9 @@ glimpse(data)</code></pre>
 ## 10 2024-11-01 &quot;Payroll Deductions &quot;   712  4401.
 ## # ℹ 200 more rows</code></pre>
 </div>
-<div id="total-amount-contributed-in-dollars" class="section level3">
-<h3>Total amount contributed, in dollars</h3>
+<div id="total-amount-contributed-by-contributor-in-dollars" class="section level3">
+<h3><strong><span style="color:#6c3483;"><strong>Total amount
+contributed by contributor, in dollars</strong></span></strong></h3>
 <pre class="r"><code>contributor_total &lt;- data |&gt;
 group_by(contributor_name) |&gt;
   summarise(num = n(),
@@ -551,7 +571,8 @@ head(contributor_total, n=10)</code></pre>
 </div>
 </div>
 <div id="top-10-contributors" class="section level1">
-<h1>Top 10 contributors</h1>
+<h1><strong><span style="color:#6c3483;"><strong>Top 10
+contributors</strong></span></strong></h1>
 <pre class="r"><code>data |&gt; 
    group_by(contributor_name) |&gt;
   summarize(count = n(), total =sum(contribution_amount)) |&gt;
@@ -571,7 +592,8 @@ head(contributor_total, n=10)</code></pre>
 ## 10 &quot;GOINS-MCCANTS  ZAKYIA &quot;                                3  19000 
 ## # ℹ 16,090 more rows</code></pre>
 <div id="total-amount-received-by-committees-in-dollars" class="section level3">
-<h3>Total amount received by committees, in dollars</h3>
+<h3><strong><span style="color:#6c3483;"><strong>Total amount received
+by committees, in dollars</strong></span></strong></h3>
 <pre class="r"><code>receivingcommittee_total &lt;- data |&gt;
   group_by(receiving_committee) |&gt;
   summarise(num = n(),
@@ -594,7 +616,8 @@ head(receivingcommittee_total, n=10)</code></pre>
 </div>
 </div>
 <div id="top-10-receiving-committees" class="section level1">
-<h1>Top 10 receiving committees</h1>
+<h1><strong><span style="color:#6c3483;"><strong>Top 10 receiving
+committees</strong></span></strong></h1>
 <pre class="r"><code>data |&gt; 
    group_by(receiving_committee) |&gt;
   summarize(count = n(), total =sum(contribution_amount)) |&gt;
@@ -613,6 +636,492 @@ head(receivingcommittee_total, n=10)</code></pre>
 ##  9 Casa in Action PAC                                        23  46160.
 ## 10 Cassilly  Bob Citizens for                               106  44825 
 ## # ℹ 213 more rows</code></pre>
+<div id="total-contributions" class="section level2">
+<h2><strong><span style="color:#6c3483;"><strong>Total
+contributions</strong></span></strong></h2>
+<pre class="r"><code>data |&gt; pull(contribution_amount) |&gt; sum()</code></pre>
+<pre><code>## [1] 2136035</code></pre>
+</div>
+</div>
+<div id="data-1" class="section level1">
+<h1><strong><span style="color:#117a65;"><strong>2020
+data</strong></span></strong></h1>
+<div id="load-data-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Load
+data</strong></span></strong></h3>
+<pre class="r"><code># 
+# YOUR_DATA &lt;- read.csv(&quot;../data/XXXXX.csv&quot;) |&gt; 
+#     clean_names()
+
+data &lt;- read.csv(&quot;./data/2020 post-general.csv&quot;) |&gt; 
+    clean_names()</code></pre>
+</div>
+<div id="explore-the-data-types-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Explore the data
+types</strong></span></strong></h3>
+<pre class="r"><code>#glimpse(YOUR_DATA)
+
+glimpse(data)</code></pre>
+<pre><code>## Rows: 9,157
+## Columns: 13
+## $ receiving_committee &lt;chr&gt; &quot;Baltimore Teachers Union - COPE PAC  The&quot;, &quot;Balti…
+## $ filing_period       &lt;chr&gt; &quot;2020 Presidential Post-General&quot;, &quot;2020 Presidenti…
+## $ contribution_date   &lt;chr&gt; &quot;10/28/2020&quot;, &quot;10/28/2020&quot;, &quot;10/30/2020&quot;, &quot;11/4/20…
+## $ contributor_name    &lt;chr&gt; &quot;WOOD  NICOLE M&quot;, &quot;GIBSON  KELLIE R&quot;, &quot;Emuh  Ellio…
+## $ contributor_address &lt;chr&gt; &quot;414 ARROW WOOD COURT  Abingdon  MD 21009&quot;, &quot;3816 …
+## $ contributor_type    &lt;chr&gt; &quot;Individual&quot;, &quot;Individual&quot;, &quot;Individual&quot;, &quot;Individ…
+## $ contribution_type   &lt;chr&gt; &quot;Payroll Deductions &quot;, &quot;Payroll Deductions &quot;, &quot;Cre…
+## $ contribution_amount &lt;dbl&gt; 2.0, 0.5, 35.0, 1.5, 6.0, 0.5, 3.0, 120.0, 3.0, 1.…
+## $ employer_name       &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;ALTRUST REALTY LLC&quot;, &quot;&quot;, &quot;CareFirst&quot;, &quot;&quot;,…
+## $ employer_occupation &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;Real Estate&quot;, &quot;&quot;, &quot;Healthcare&quot;, &quot;&quot;, &quot;Heal…
+## $ office              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ fundtype            &lt;chr&gt; &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;…
+## $ x                   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div id="fix-dates-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Fix
+dates</strong></span></strong></h3>
+<pre class="r"><code>data &lt;- data |&gt; 
+  mutate(date = lubridate::mdy(contribution_date))</code></pre>
+</div>
+<div id="data-exploration-dates-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Data exploration:
+dates</strong></span></strong></h3>
+<pre class="r"><code>data |&gt; 
+   group_by(date, contribution_type) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(count))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 191 × 4
+## # Groups:   date [41]
+##    date       contribution_type     count  total
+##    &lt;date&gt;     &lt;chr&gt;                 &lt;int&gt;  &lt;dbl&gt;
+##  1 2020-11-04 &quot;Payroll Deductions &quot;  1422  2130 
+##  2 2020-10-30 &quot;Credit Card&quot;           669 21870.
+##  3 2020-11-06 &quot;Payroll Deductions &quot;   667  3854.
+##  4 2020-11-10 &quot;Payroll Deductions &quot;   555  4139.
+##  5 2020-11-09 &quot;Payroll Deductions &quot;   544  2380.
+##  6 2020-10-30 &quot;Payroll Deductions &quot;   512  5008.
+##  7 2020-10-21 &quot;Credit Card&quot;           511 30778.
+##  8 2020-10-23 &quot;Payroll Deductions &quot;   356  2216.
+##  9 2020-10-22 &quot;Payroll Deductions &quot;   251   735 
+## 10 2020-10-28 &quot;Payroll Deductions &quot;   229   255.
+## # ℹ 181 more rows</code></pre>
+</div>
+<div id="total-amount-contributed-by-contributor-in-dollars-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Total amount
+contributed by contributor, in dollars</strong></span></strong></h3>
+<pre class="r"><code>contributor_total &lt;- data |&gt;
+group_by(contributor_name) |&gt;
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    contributor_name                           num  total
+##    &lt;chr&gt;                                    &lt;int&gt;  &lt;dbl&gt;
+##  1 1035 Old Philadelphia Rd LLC                 1  200  
+##  2 4th &amp; 5th District Democratic Club of Ch     1  200  
+##  3 6500 Quad Avenue                             1 1000  
+##  4 A Step Above the Rest LLC                    1  291  
+##  5 A.A. County FOP Lodge 70 PAC                 1 1000  
+##  6 ABC Liquors  Inc.                            1  250  
+##  7 ABRAMOWITZ  SANDRA B                         3    1.5
+##  8 ACE-AFSCME Local 2250                        2 3000  
+##  9 ACLE  NICOLE  LORRAINE                       1 5000  
+## 10 ADAMS  DAVID                                 2   10</code></pre>
+</div>
+</div>
+<div id="top-10-contributors-1" class="section level1">
+<h1><strong><span style="color:#117a65;"><strong>Top 10
+contributors</strong></span></strong></h1>
+<pre class="r"><code>data |&gt; 
+   group_by(contributor_name) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 8,292 × 3
+##    contributor_name                            count   total
+##    &lt;chr&gt;                                       &lt;int&gt;   &lt;dbl&gt;
+##  1 &quot;DraftKings&quot;                                    1 500000 
+##  2 &quot;Washington Football Inc&quot;                      25 203125.
+##  3 &quot;Council for Advocacy and Policy Solutions&quot;     1  50000 
+##  4 &quot;Strategic Victory Fund&quot;                        1  50000 
+##  5 &quot;Rappaport  Stacey&quot;                            64  39201.
+##  6 &quot;THOMPSON  ROBERT  JEFFREY&quot;                     2  28800 
+##  7 &quot;TITUS  RICHARD  ROGER&quot;                         1  19500 
+##  8 &quot;Lump Sum&quot;                                      6  18501.
+##  9 &quot;AFGE (General) - American Federation of &quot;      1  10000 
+## 10 &quot;Cohen  Richard S.&quot;                             1  10000 
+## # ℹ 8,282 more rows</code></pre>
+<div id="total-amount-received-by-committees-in-dollars-1" class="section level3">
+<h3><strong><span style="color:#117a65;"><strong>Total amount received
+by committees, in dollars</strong></span></strong></h3>
+<pre class="r"><code>receivingcommittee_total &lt;- data |&gt;
+  group_by(receiving_committee) |&gt;
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    receiving_committee                                       num receiving_total
+##    &lt;chr&gt;                                                   &lt;int&gt;           &lt;dbl&gt;
+##  1 (Paz) Muller  Franca for the People                       280          15449.
+##  2 AFL-CIO  O.P.E.I.U.  Local 2  Political Education Prog…     2             20 
+##  3 AFSCME-ACE PAC                                              2            205.
+##  4 AT&amp;T PAC MD                                               121            829.
+##  5 Acle  Nicole Friends of                                    18           8695 
+##  6 Active Ballot Club Local 27 Educational Fund PAC            1           3006.
+##  7 Adams-Stafford  Shayla Friends of                          18           5690 
+##  8 Ademiluyi  April  Elect                                    26           5317.
+##  9 Allegany County Democratic Central Committee               60           1362 
+## 10 Allegany County Republican Central Committee               17           1461.</code></pre>
+</div>
+</div>
+<div id="top-10-receiving-committees-1" class="section level1">
+<h1><strong><span style="color:#117a65;"><strong>Top 10 receiving
+committees</strong></span></strong></h1>
+<pre class="r"><code>data |&gt; 
+   group_by(receiving_committee) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 208 × 3
+##    receiving_committee                                      count   total
+##    &lt;chr&gt;                                                    &lt;int&gt;   &lt;dbl&gt;
+##  1 Vote Yes on Question 2                                      26 703125.
+##  2 Ferguson  Bill Citizens for                                 77 110550 
+##  3 Scott  Brandon M. People for                               131  92455 
+##  4 Wallace  Robert for Mayor                                  107  70234 
+##  5 MONTGOMERY NEIGHBORS AGAINST QUESTION B                      6  58600 
+##  6 Montgomery Countians For Question A &amp; Against Question B     3  58433.
+##  7 Pittman  Steuart Friends of                                 90  55796.
+##  8 Realtors PAC  Md. (MD RPAC)                               1350  48169.
+##  9 Democratic State Central Committee Of Maryland              12  47000 
+## 10 Rappaport  Andrew Keep Judge                                65  39206.
+## # ℹ 198 more rows</code></pre>
+<div id="total-contributions-1" class="section level2">
+<h2><strong><span style="color:#117a65;"><strong>Total
+contributions</strong></span></strong></h2>
+<pre class="r"><code>data |&gt; pull(contribution_amount) |&gt; sum()</code></pre>
+<pre><code>## [1] 1896300</code></pre>
+</div>
+</div>
+<div id="data-2" class="section level1">
+<h1>2025 data</h1>
+<pre class="r"><code># 
+# YOUR_DATA &lt;- read.csv(&quot;../data/XXXXX.csv&quot;) |&gt; 
+#     clean_names()
+
+data &lt;- read.csv(&quot;./data/2025 contributions.csv&quot;) |&gt; 
+    clean_names()</code></pre>
+<div id="explore-the-data-types-2" class="section level3">
+<h3>Explore the data types</h3>
+<pre class="r"><code>#glimpse(YOUR_DATA)
+
+glimpse(data)</code></pre>
+<pre><code>## Rows: 18,383
+## Columns: 13
+## $ receiving_committee &lt;chr&gt; &quot;Andes  Jon Citizens for&quot;, &quot;Baltimore Gas and Elec…
+## $ filing_period       &lt;chr&gt; &quot;2026  Annual&quot;, &quot;2025 Special Pre-Primary2&quot;, &quot;2026…
+## $ contribution_date   &lt;chr&gt; &quot;1/16/2025&quot;, &quot;1/17/2025&quot;, &quot;6/4/2025&quot;, &quot;2/15/2025&quot;,…
+## $ contributor_name    &lt;chr&gt; &quot;ANDES  JON  MICHAEL&quot;, &quot;Brown  Terrell A&quot;, &quot;IRWIN …
+## $ contributor_address &lt;chr&gt; &quot;11507 Quilin Way  Berlin  MD 21811&quot;, &quot;414 Light S…
+## $ contributor_type    &lt;chr&gt; &quot;Self (Candidate)&quot;, &quot;Individual&quot;, &quot;Self (Candidate…
+## $ contribution_type   &lt;chr&gt; &quot;In-Kind&quot;, &quot;Payroll Deductions &quot;, &quot;In-Kind&quot;, &quot;In-K…
+## $ contribution_amount &lt;dbl&gt; 1207.89, 2.00, 2176.79, 25.13, 2324.50, 11673.34, …
+## $ employer_name       &lt;chr&gt; &quot;&quot;, &quot;Baltimore Gas &amp; Electric Co&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,…
+## $ employer_occupation &lt;chr&gt; &quot;&quot;, &quot;Other&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;…
+## $ office              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;County Commissioners (Carroll) &quot;, &quot;&quot;, &quot;&quot;,…
+## $ fundtype            &lt;chr&gt; &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;…
+## $ x                   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div id="fix-dates-2" class="section level3">
+<h3>Fix dates</h3>
+<pre class="r"><code>data &lt;- data |&gt; 
+  mutate(date = lubridate::mdy(contribution_date))</code></pre>
+</div>
+<div id="data-exploration-dates-2" class="section level3">
+<h3>Data exploration: dates</h3>
+<pre class="r"><code>data |&gt; 
+   group_by(date, contribution_type) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(count))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 435 × 4
+## # Groups:   date [136]
+##    date       contribution_type     count   total
+##    &lt;date&gt;     &lt;chr&gt;                 &lt;int&gt;   &lt;dbl&gt;
+##  1 2025-01-03 &quot;Payroll Deductions &quot;  2079  18569.
+##  2 2025-01-03 &quot;Check&quot;                1275  85619.
+##  3 2025-01-07 &quot;Credit Card&quot;          1142 368207.
+##  4 2025-01-07 &quot;Membership Dues&quot;       990   4198 
+##  5 2025-01-07 &quot;Payroll Deductions &quot;   913   9453.
+##  6 2025-01-02 &quot;Payroll Deductions &quot;   877  72411.
+##  7 2025-01-08 &quot;Credit Card&quot;           754 342843.
+##  8 2025-01-06 &quot;Credit Card&quot;           664 254740.
+##  9 2025-01-08 &quot;Check&quot;                 574 335195.
+## 10 2025-01-07 &quot;Check&quot;                 549 403804.
+## # ℹ 425 more rows</code></pre>
+</div>
+<div id="total-amount-contributed-in-dollars" class="section level3">
+<h3>Total amount contributed, in dollars</h3>
+<pre class="r"><code>contributor_total &lt;- data |&gt;
+group_by(contributor_name) |&gt;
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    contributor_name                          num total
+##    &lt;chr&gt;                                   &lt;int&gt; &lt;dbl&gt;
+##  1 &quot;&quot;                                          3 4738.
+##  2 &quot;103 Wine &amp; Spirits&quot;                        1  100 
+##  3 &quot;1199 SEIU - NYS Political Action Fund&quot;     1 5000 
+##  4 &quot;21st Century Expo Group&quot;                   1  200 
+##  5 &quot;21st Century Expo Group  Inc.&quot;             1  200 
+##  6 &quot;32BJ United ADF&quot;                           1 6000 
+##  7 &quot;32BJ United American Dream Fund&quot;           2 8500 
+##  8 &quot;3400 Associates  LLC&quot;                      1  500 
+##  9 &quot;3827 Plyers Mill Venture LLC&quot;              1 2500 
+## 10 &quot;51 Liquor LLC&quot;                             1  100</code></pre>
+</div>
+</div>
+<div id="top-10-contributors-2" class="section level1">
+<h1>Top 10 contributors</h1>
+<pre class="r"><code>data |&gt; 
+   group_by(contributor_name) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 13,916 × 3
+##    contributor_name                                 count   total
+##    &lt;chr&gt;                                            &lt;int&gt;   &lt;dbl&gt;
+##  1 Greater Capital Area Association of REALTORS IEC     1 250500 
+##  2 IVEY  JOLENE  MARGARITE STEPHENSON                   1 250000 
+##  3 ADAMS  CHRISTOPHER  TROY                             1 120000 
+##  4 We Are Labor 2 PAC                                   2 115188 
+##  5 National Association of REALTORS                     1  62340.
+##  6 National Association of Realtors                     1  62340.
+##  7 WB LLC                                               1  60000 
+##  8 State Board of Elections                            13  54066.
+##  9 Dimension Renewable Energy                           1  50500 
+## 10 Chaberton Energy                                     1  44000 
+## # ℹ 13,906 more rows</code></pre>
+<div id="total-amount-received-by-committees-in-dollars-2" class="section level3">
+<h3>Total amount received by committees, in dollars</h3>
+<pre class="r"><code>receivingcommittee_total &lt;- data |&gt;
+  group_by(receiving_committee) |&gt;
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    receiving_committee                                num receiving_total
+##    &lt;chr&gt;                                            &lt;int&gt;           &lt;dbl&gt;
+##  1 A.A. County FOP Lodge 70 PAC                         1           2583 
+##  2 AFSCME Working Families Fund                         2           7000 
+##  3 AT&amp;T PAC MD                                         49            276.
+##  4 Acevero  Gabriel Friends of                          1           1000 
+##  5 Active Ballot Club Local 27 Educational Fund PAC     3            828.
+##  6 Adams  Christopher Friends of                       44         124800 
+##  7 Adams-Stafford  Shayla Friends of                  177          80660.
+##  8 Addison  Jackie Citizens to Elect                   24           2740 
+##  9 Against Question A                                   1            785.
+## 10 Allen  Nicholas Friends of                           6           2300</code></pre>
+</div>
+</div>
+<div id="top-10-receiving-committees-2" class="section level1">
+<h1>Top 10 receiving committees</h1>
+<pre class="r"><code>data |&gt; 
+   group_by(receiving_committee) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 366 × 3
+##    receiving_committee                                 count   total
+##    &lt;chr&gt;                                               &lt;int&gt;   &lt;dbl&gt;
+##  1 Braveboy  Aisha Friends Of                            924 672959.
+##  2 Hawkins  Calvin For County Executive                  739 474993 
+##  3 Moore  Wes For Maryland                               381 412603.
+##  4 Ivey  Jolene Friends Of                               264 390878.
+##  5 Greater Capital Area Association of REALTORS MD IEC     2 312840.
+##  6 We Are Labor 2 PAC                                     14 276188 
+##  7 Coalition for Community Solar Access                    8 218600 
+##  8 Baker III  Rushern Friends of                         418 178724.
+##  9 Regional Alliance for Small Business Executives        17 167058.
+## 10 Miller  Aruna Friends of                               77 130034.
+## # ℹ 356 more rows</code></pre>
+</div>
+<div id="total-contribution-amount" class="section level1">
+<h1>Total contribution amount</h1>
+<pre class="r"><code>data |&gt; pull(contribution_amount) |&gt; sum()</code></pre>
+<pre><code>## [1] 6393821</code></pre>
+</div>
+<div id="david-d.-smith-contributions" class="section level1">
+<h1><strong><span style="color:#a04000;"><strong>David D. Smith
+contributions</strong></span></strong></h1>
+<div id="load-software-libraries-1" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Load software
+libraries</strong></span></strong></h3>
+</div>
+<div id="load-data-2" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Load
+data</strong></span></strong></h3>
+<pre class="r"><code># 
+# YOUR_DATA &lt;- read.csv(&quot;../data/XXXXX.csv&quot;) |&gt; 
+#     clean_names()
+
+data &lt;- read.csv(&quot;./data/David D smith.csv&quot;) |&gt; 
+    clean_names()</code></pre>
+</div>
+<div id="explore-the-data-types-3" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Explore the data
+types</strong></span></strong></h3>
+<pre class="r"><code>#glimpse(YOUR_DATA)
+
+glimpse(data)</code></pre>
+<pre><code>## Rows: 813
+## Columns: 13
+## $ receiving_committee &lt;chr&gt; &quot;MSEA&#39;s Fund For Children And Public Education PAC…
+## $ filing_period       &lt;chr&gt; &quot;2018 Gubernatorial Pre-Primary1&quot;, &quot;2006 Gubernato…
+## $ contribution_date   &lt;chr&gt; &quot;2/15/2018&quot;, &quot;9/5/2006&quot;, &quot;1/27/2006&quot;, &quot;11/6/2006&quot;,…
+## $ contributor_name    &lt;chr&gt; &quot;SMITH  DAVID EDMUND LEE&quot;, &quot;Smith  David A&quot;, &quot;SMIT…
+## $ contributor_address &lt;chr&gt; &quot;1804 Rileys Ct N  Point Of Rocks  MD 21777&quot;, &quot;249…
+## $ contributor_type    &lt;chr&gt; &quot;Individual&quot;, &quot;Individual&quot;, &quot;Individual&quot;, &quot;Individ…
+## $ contribution_type   &lt;chr&gt; &quot;Payroll Deductions &quot;, &quot;Check&quot;, &quot;Payroll Deduction…
+## $ contribution_amount &lt;dbl&gt; 4.5, 400.0, 1.5, 1000.0, 1000.0, 250.0, 250.0, 5.0…
+## $ employer_name       &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ employer_occupation &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ office              &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ fundtype            &lt;chr&gt; &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;, &quot;Electoral&quot;…
+## $ x                   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div id="fix-dates-3" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Fix
+dates</strong></span></strong></h3>
+<pre class="r"><code>data &lt;- data |&gt; 
+  mutate(date = lubridate::mdy(contribution_date))</code></pre>
+</div>
+<div id="data-exploration-dates-3" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Data exploration:
+dates</strong></span></strong></h3>
+<pre class="r"><code>data |&gt; 
+   group_by(date, contribution_type) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(count))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 714 × 4
+## # Groups:   date [677]
+##    date       contribution_type  count  total
+##    &lt;date&gt;     &lt;chr&gt;              &lt;int&gt;  &lt;dbl&gt;
+##  1 2008-04-29 Payroll Deductions     4  20   
+##  2 2023-06-11 Membership Dues        4  12   
+##  3 2008-05-23 Payroll Deductions     3  14   
+##  4 2010-01-12 Check                  3 385   
+##  5 2011-12-09 Payroll Deductions     3   6.28
+##  6 2011-12-22 Payroll Deductions     3   7.68
+##  7 2012-01-20 Payroll Deductions     3   3.28
+##  8 2012-02-03 Payroll Deductions     3   1.97
+##  9 2012-02-17 Payroll Deductions     3   1.88
+## 10 2012-03-02 Payroll Deductions     3   1.93
+## # ℹ 704 more rows</code></pre>
+</div>
+<div id="total-amount-contributed-by-contributor-in-dollars-2" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Total amount
+contributed by contributor, in dollars</strong></span></strong></h3>
+<pre class="r"><code>contributor_total &lt;- data |&gt;
+group_by(contributor_name) |&gt;
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    contributor_name                  num    total
+##    &lt;chr&gt;                           &lt;int&gt;    &lt;dbl&gt;
+##  1 SMITH  DAVID                       71    619. 
+##  2 SMITH  DAVID C                     46     82.2
+##  3 SMITH  DAVID D                      5   4780  
+##  4 SMITH  DAVID EDMUND LEE            93    412. 
+##  5 SMITH  DAVID LEE                    3    110  
+##  6 SMITH  DAVID M.                     1     50  
+##  7 SMITH  David                        3      9  
+##  8 SMITH  David C                      4     12  
+##  9 SMITH-GREEN  DAVID &amp; JACQUELINE     1     25  
+## 10 Smith  David                      280 586232.</code></pre>
+</div>
+</div>
+<div id="top-10-contributors-3" class="section level1">
+<h1><strong><span style="color:#a04000;"><strong>Top 10
+contributors</strong></span></strong></h1>
+<pre class="r"><code>data |&gt; 
+   group_by(contributor_name) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 41 × 3
+##    contributor_name     count   total
+##    &lt;chr&gt;                &lt;int&gt;   &lt;dbl&gt;
+##  1 Smith  David D          15 765200 
+##  2 Smith  David           280 586232.
+##  3 Smith  David D.          4   7500 
+##  4 SMITH  DAVID D           5   4780 
+##  5 Smith  David M.          8   3454.
+##  6 Smith  David Stanton     1   2000 
+##  7 Smith  David M          36   1413.
+##  8 Smith  David C         162   1231.
+##  9 Smith  david             1   1000 
+## 10 Smith  David B.          4    700 
+## # ℹ 31 more rows</code></pre>
+<div id="total-amount-received-by-committees-in-dollars-3" class="section level3">
+<h3><strong><span style="color:#a04000;"><strong>Total amount received
+by committees, in dollars</strong></span></strong></h3>
+<pre class="r"><code>receivingcommittee_total &lt;- data |&gt;
+  group_by(receiving_committee) |&gt;
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    receiving_committee                                       num receiving_total
+##    &lt;chr&gt;                                                   &lt;int&gt;           &lt;dbl&gt;
+##  1 (Paz) Muller  Franca for the People                         1            26.3
+##  2 Alsobrooks  Angela Friends Of                               9           629  
+##  3 Andrews  Phil Friends Of                                    6           825  
+##  4 Arentz  Steve for Delegate Friends of                       1           200  
+##  5 Asti  Alison Friends of                                     1           100  
+##  6 Augustine  Nicholas Friends of                              1           103. 
+##  7 BETTER BALTIMORE PAC                                        3        250000  
+##  8 Baker  Rushern III Friends Of-Comm For Pol Change (CPC)     1            50  
+##  9 Baltimore City Fraternal Order Of Police PAC Fund          17            17  
+## 10 Baltimore County Firefighters PAC                          36           120</code></pre>
+</div>
+</div>
+<div id="top-10-receiving-committees-3" class="section level1">
+<h1><strong><span style="color:#a04000;"><strong>Top 10 receiving
+committees</strong></span></strong></h1>
+<pre class="r"><code>data |&gt; 
+   group_by(receiving_committee) |&gt;
+  summarize(count = n(), total =sum(contribution_amount)) |&gt;
+  arrange(desc(total))</code></pre>
+<pre><code>## # A tibble: 146 × 3
+##    receiving_committee                                    count   total
+##    &lt;chr&gt;                                                  &lt;int&gt;   &lt;dbl&gt;
+##  1 People for Elected Accountability and Civic Engagement     9 1060000
+##  2 BETTER BALTIMORE PAC                                       3  250000
+##  3 Franchot  Peter Friends Of                                 2   10000
+##  4 Hogan  Larry for Governor                                  3    6535
+##  5 Pugh  Catherine E. Committee to Elect                      1    4000
+##  6 Silverman  Steve Citizens For                              1    3000
+##  7 Ehrlich  Bob For Maryland Committee                        9    2575
+##  8 Bevins  Cathy Friends Of                                   1    2500
+##  9 Gansler  Doug Friends Of                                   2    2000
+## 10 Kamenetz  (Kevin) Committee For                            1    2000
+## # ℹ 136 more rows</code></pre>
+<div id="total-contributions-2" class="section level2">
+<h2><strong><span style="color:#a04000;"><strong>Total
+contributions</strong></span></strong></h2>
+<pre class="r"><code>data |&gt; pull(contribution_amount) |&gt; sum()</code></pre>
+<pre><code>## [1] 1379353</code></pre>
+</div>
 </div>
 
 

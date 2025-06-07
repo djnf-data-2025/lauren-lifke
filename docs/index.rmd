@@ -51,25 +51,34 @@ I need to gather newer data -- according to Maryland State Board of Elections, d
 
 <https://www.thebaltimorebanner.com/politics-power/local-government/smaller-baltimore-council-ballot-question-AN7255KQU5GSRIVVJBIKKAQ5SE/>
 
+**Findings**:
+
+The total donation amount in the 2024 presidential post-general election was \$2,136,035. In 2020, it was \$1,896,300. As the sixth-largest donor in 2024, David D. Smith's donations made up nearly 4% of the total contribution amount. In 2020, the sixth-largest donor made up only the 1.5% of the total contribution amount.
+
 ## Charts
 
 
 <iframe title="Top 10 campaign donors in the Maryland 2024 election " aria-label="Stacked Bars" id="datawrapper-chart-MAFhp" src="https://datawrapper.dwcdn.net/MAFhp/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
 </script>
 
-
-
-
-
-
 <iframe title="Top 10 donation recipients in the Maryland 2024 election" aria-label="Stacked Bars" id="datawrapper-chart-dL764" src="https://datawrapper.dwcdn.net/dL764/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
+</script>
+
+<iframe title="Top 10 contributors as percent of total contributions, by year" aria-label="Grouped Bars" id="datawrapper-chart-1I487" src="https://datawrapper.dwcdn.net/1I487/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="676" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}}))}();
 </script>
 
 
 Code
 =======
 
-### Load software libraries
+# **<span style="color:#6c3483;">**2024 data**</span>**
+
+
+
+
+
+### **<span style="color:#6c3483;">**Load software libraries**</span>**
+
 ```{r}
 #install.packages("tidyverse")
 #install.packages("janitor")
@@ -83,8 +92,7 @@ library(rvest)
 ```
 
 
-### Load data
-
+### **<span style="color:#6c3483;">**Load data**</span>**
 
 ```{r}
 
@@ -92,7 +100,187 @@ library(rvest)
 # YOUR_DATA <- read.csv("../data/XXXXX.csv") |> 
 #     clean_names()
 
-data <- read.csv("../data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv") |> 
+data <- read.csv("./data/2024 Presidential Post General Md Financial Info 2024 Presidential Post General .csv") |> 
+    clean_names()
+
+
+```
+
+
+### **<span style="color:#6c3483;">**Explore the data types**</span>**
+```{r}
+
+#glimpse(YOUR_DATA)
+
+glimpse(data)
+
+```
+
+### **<span style="color:#6c3483;">**Fix dates**</span>**
+
+```{r}
+data <- data |> 
+  mutate(date = lubridate::mdy(contribution_date))
+```
+
+
+
+### **<span style="color:#6c3483;">**Data exploration: dates**</span>**
+
+```{r}
+data |> 
+   group_by(date, contribution_type) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(count))
+```
+
+### **<span style="color:#6c3483;">**Total amount contributed by contributor, in dollars**</span>**
+
+```{r}
+contributor_total <- data |>
+group_by(contributor_name) |>
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)
+```
+
+# **<span style="color:#6c3483;">**Top 10 contributors**</span>**
+
+```{r}
+data |> 
+   group_by(contributor_name) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+### **<span style="color:#6c3483;">**Total amount received by committees, in dollars**</span>**
+
+```{r}
+receivingcommittee_total <- data |>
+  group_by(receiving_committee) |>
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)
+```
+
+# **<span style="color:#6c3483;">**Top 10 receiving committees**</span>**
+
+```{r}
+data |> 
+   group_by(receiving_committee) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+
+## **<span style="color:#6c3483;">**Total contributions**</span>**
+
+```{r}
+data |> pull(contribution_amount) |> sum()
+```
+
+# **<span style="color:#117a65;">**2020 data**</span>**
+
+
+### **<span style="color:#117a65;">**Load data**</span>**
+
+```{r}
+
+# 
+# YOUR_DATA <- read.csv("../data/XXXXX.csv") |> 
+#     clean_names()
+
+data <- read.csv("./data/2020 post-general.csv") |> 
+    clean_names()
+
+
+```
+
+
+### **<span style="color:#117a65;">**Explore the data types**</span>**
+
+```{r}
+
+#glimpse(YOUR_DATA)
+
+glimpse(data)
+
+```
+
+### **<span style="color:#117a65;">**Fix dates**</span>**
+
+```{r}
+data <- data |> 
+  mutate(date = lubridate::mdy(contribution_date))
+```
+
+
+
+### **<span style="color:#117a65;">**Data exploration: dates**</span>**
+
+```{r}
+data |> 
+   group_by(date, contribution_type) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(count))
+```
+
+### **<span style="color:#117a65;">**Total amount contributed by contributor, in dollars**</span>**
+
+```{r}
+contributor_total <- data |>
+group_by(contributor_name) |>
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)
+```
+
+# **<span style="color:#117a65;">**Top 10 contributors**</span>**
+
+```{r}
+data |> 
+   group_by(contributor_name) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+### **<span style="color:#117a65;">**Total amount received by committees, in dollars**</span>**
+
+```{r}
+receivingcommittee_total <- data |>
+  group_by(receiving_committee) |>
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)
+```
+
+# **<span style="color:#117a65;">**Top 10 receiving committees**</span>**
+
+```{r}
+data |> 
+   group_by(receiving_committee) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+## **<span style="color:#117a65;">**Total contributions**</span>**
+```{r}
+data |> pull(contribution_amount) |> sum()
+```
+
+# 2025 data
+
+```{r}
+
+# 
+# YOUR_DATA <- read.csv("../data/XXXXX.csv") |> 
+#     clean_names()
+
+data <- read.csv("./data/2025 contributions.csv") |> 
     clean_names()
 
 
@@ -164,3 +352,106 @@ data |>
   summarize(count = n(), total =sum(contribution_amount)) |>
   arrange(desc(total))
 ```
+
+# Total contribution amount
+```{r}
+data |> pull(contribution_amount) |> sum()
+```
+
+
+# **<span style="color:#a04000;">**David D. Smith contributions**</span>**
+
+### **<span style="color:#a04000;">**Load software libraries**</span>**
+
+
+
+
+### **<span style="color:#a04000;">**Load data**</span>**
+
+```{r}
+
+# 
+# YOUR_DATA <- read.csv("../data/XXXXX.csv") |> 
+#     clean_names()
+
+data <- read.csv("./data/David D smith.csv") |> 
+    clean_names()
+
+
+```
+
+
+### **<span style="color:#a04000;">**Explore the data types**</span>**
+
+```{r}
+
+#glimpse(YOUR_DATA)
+
+glimpse(data)
+
+```
+
+### **<span style="color:#a04000;">**Fix dates**</span>**
+
+```{r}
+data <- data |> 
+  mutate(date = lubridate::mdy(contribution_date))
+```
+
+
+
+### **<span style="color:#a04000;">**Data exploration: dates**</span>**
+
+```{r}
+data |> 
+   group_by(date, contribution_type) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(count))
+```
+
+### **<span style="color:#a04000;">**Total amount contributed by contributor, in dollars**</span>**
+
+```{r}
+contributor_total <- data |>
+group_by(contributor_name) |>
+  summarise(num = n(),
+          total = sum(contribution_amount))
+
+head(contributor_total, n=10)
+```
+
+# **<span style="color:#a04000;">**Top 10 contributors**</span>**
+
+```{r}
+data |> 
+   group_by(contributor_name) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+### **<span style="color:#a04000;">**Total amount received by committees, in dollars**</span>**
+
+```{r}
+receivingcommittee_total <- data |>
+  group_by(receiving_committee) |>
+  summarise(num = n(),
+          receiving_total = sum(contribution_amount))
+
+head(receivingcommittee_total, n=10)
+```
+
+# **<span style="color:#a04000;">**Top 10 receiving committees**</span>**
+
+```{r}
+data |> 
+   group_by(receiving_committee) |>
+  summarize(count = n(), total =sum(contribution_amount)) |>
+  arrange(desc(total))
+```
+
+## **<span style="color:#a04000;">**Total contributions**</span>**
+```{r}
+data |> pull(contribution_amount) |> sum()
+```
+
+
